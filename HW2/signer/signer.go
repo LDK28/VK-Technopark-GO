@@ -7,6 +7,8 @@ import (
 	"sync"
 )
 
+const maxCount = 6
+
 func ExecutePipeline(workers ...job) {
 	wg := &sync.WaitGroup{}
 	var in chan interface{}
@@ -60,7 +62,6 @@ func SingleHash(in, out chan interface{}) {
 }
 
 func MultiHash(in, out chan interface{}) {
-	const maxCount = 6;
 	wgAll := &sync.WaitGroup{}
 	for element := range in {
 		wgAll.Add(1)
