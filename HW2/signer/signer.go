@@ -60,6 +60,7 @@ func SingleHash(in, out chan interface{}) {
 }
 
 func MultiHash(in, out chan interface{}) {
+	const maxCount = 6;
 	wgAll := &sync.WaitGroup{}
 	for element := range in {
 		wgAll.Add(1)
@@ -67,8 +68,8 @@ func MultiHash(in, out chan interface{}) {
 		go func(element interface{}, wgAll *sync.WaitGroup) {
 			defer wgAll.Done()
 			wg := &sync.WaitGroup{}
-			data := make([]string, 6)
-			for i := 0; i < 6; i++ {
+			data := make([]string, maxCount)
+			for i := 0; i < maxCount; i++ {
 				wg.Add(1)
 
 				go func(data []string, str string, idx int, wg *sync.WaitGroup) {
